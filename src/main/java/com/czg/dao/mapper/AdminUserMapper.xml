@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.czg.dao.AdminUserMapper" >
+  <resultMap id="BaseResultMap" type="com.czg.bean.AdminUser" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="SALT" property="salt" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="condition.userName != null" >
+         and USER_NAME = #{condition.userName}
+      </if>
+      <if test="condition.realName != null" >
+         and REAL_NAME = #{condition.realName}
+      </if>
+      <if test="condition.salt != null" >
+         and SALT = #{condition.salt}
+      </if>
+      <if test="condition.password != null" >
+         and PASSWORD = #{condition.password}
+      </if>
+      <if test="condition.status != null" >
+         and STATUS = #{condition.status}
+      </if>
+    </trim>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, USER_NAME, REAL_NAME, SALT, PASSWORD, STATUS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.czg.common.DaoCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from admin_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="common.Mysql_Pagination_Limit" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin_user
+    where ID = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from admin_user
+    where ID = #{id}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.czg.common.DaoCriteria" >
+    delete from admin_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.czg.bean.AdminUser" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into admin_user (ID, USER_NAME, REAL_NAME, SALT, PASSWORD, STATUS)
+    values (#{id}, #{userName}, #{realName}, #{salt}, #{password}, #{status})
+  </insert>
+  <insert id="insertSelective" parameterType="com.czg.bean.AdminUser" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into admin_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      ID,
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="realName != null" >
+        REAL_NAME,
+      </if>
+      <if test="salt != null" >
+        SALT,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id},
+      <if test="userName != null" >
+        #{userName},
+      </if>
+      <if test="realName != null" >
+        #{realName},
+      </if>
+      <if test="salt != null" >
+        #{salt},
+      </if>
+      <if test="password != null" >
+        #{password},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.czg.common.DaoCriteria" resultType="java.lang.Integer" >
+    select count(*) from admin_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update admin_user
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id},
+      </if>
+      <if test="record.userName != null" >
+        USER_NAME = #{record.userName},
+      </if>
+      <if test="record.realName != null" >
+        REAL_NAME = #{record.realName},
+      </if>
+      <if test="record.salt != null" >
+        SALT = #{record.salt},
+      </if>
+      <if test="record.password != null" >
+        PASSWORD = #{record.password},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update admin_user
+    set ID = #{record.id},
+      USER_NAME = #{record.userName},
+      REAL_NAME = #{record.realName},
+      SALT = #{record.salt},
+      PASSWORD = #{record.password},
+      STATUS = #{record.status}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.czg.bean.AdminUser" >
+    update admin_user
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName},
+      </if>
+      <if test="realName != null" >
+        REAL_NAME = #{realName},
+      </if>
+      <if test="salt != null" >
+        SALT = #{salt},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.czg.bean.AdminUser" >
+    update admin_user
+    set USER_NAME = #{userName},
+      REAL_NAME = #{realName},
+      SALT = #{salt},
+      PASSWORD = #{password},
+      STATUS = #{status}
+    where ID = #{id}
+  </update>
+</mapper>

@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.czg.dao.ChanPinMapper" >
+  <resultMap id="BaseResultMap" type="com.czg.bean.ChanPin" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CID" property="cid" jdbcType="INTEGER" />
+    <result column="CNUM" property="cnum" jdbcType="INTEGER" />
+    <result column="CNAME" property="cname" jdbcType="VARCHAR" />
+    <result column="HOT" property="hot" jdbcType="INTEGER" />
+    <result column="MATERIALS" property="materials" jdbcType="VARCHAR" />
+    <result column="SEASONING" property="seasoning" jdbcType="VARCHAR" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="MONEY" property="money" jdbcType="DECIMAL" />
+    <result column="MIN_IMG" property="minImg" jdbcType="VARCHAR" />
+    <result column="MAX_IMG" property="maxImg" jdbcType="VARCHAR" />
+    <result column="EXTEND_IMG" property="extendImg" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="DATE_LINE" property="dateLine" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="condition.cid != null" >
+         and CID = #{condition.cid}
+      </if>
+      <if test="condition.cnum != null" >
+         and CNUM = #{condition.cnum}
+      </if>
+      <if test="condition.cname != null" >
+         and CNAME = #{condition.cname}
+      </if>
+      <if test="condition.hot != null" >
+         and HOT = #{condition.hot}
+      </if>
+      <if test="condition.materials != null" >
+         and MATERIALS = #{condition.materials}
+      </if>
+      <if test="condition.seasoning != null" >
+         and SEASONING = #{condition.seasoning}
+      </if>
+      <if test="condition.note != null" >
+         and NOTE = #{condition.note}
+      </if>
+      <if test="condition.money != null" >
+         and MONEY = #{condition.money}
+      </if>
+      <if test="condition.minImg != null" >
+         and MIN_IMG = #{condition.minImg}
+      </if>
+      <if test="condition.maxImg != null" >
+         and MAX_IMG = #{condition.maxImg}
+      </if>
+      <if test="condition.extendImg != null" >
+         and EXTEND_IMG = #{condition.extendImg}
+      </if>
+      <if test="condition.status != null" >
+         and STATUS = #{condition.status}
+      </if>
+      <if test="condition.dateLine != null" >
+         and DATE_LINE = #{condition.dateLine}
+      </if>
+    </trim>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, CID, CNUM, CNAME, HOT, MATERIALS, SEASONING, NOTE, MONEY, MIN_IMG, MAX_IMG, EXTEND_IMG, 
+    STATUS, DATE_LINE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.czg.common.DaoCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from chan_pin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="common.Mysql_Pagination_Limit" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from chan_pin
+    where ID = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from chan_pin
+    where ID = #{id}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.czg.common.DaoCriteria" >
+    delete from chan_pin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.czg.bean.ChanPin" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into chan_pin (ID, CID, CNUM, CNAME, HOT, MATERIALS, SEASONING, NOTE, 
+      MONEY, MIN_IMG, MAX_IMG, EXTEND_IMG, STATUS, DATE_LINE)
+    values (#{id}, #{cid}, #{cnum}, #{cname}, #{hot}, #{materials}, #{seasoning}, #{note}, 
+      #{money}, #{minImg}, #{maxImg}, #{extendImg}, #{status}, #{dateLine})
+  </insert>
+  <insert id="insertSelective" parameterType="com.czg.bean.ChanPin" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into chan_pin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      ID,
+      <if test="cid != null" >
+        CID,
+      </if>
+      <if test="cnum != null" >
+        CNUM,
+      </if>
+      <if test="cname != null" >
+        CNAME,
+      </if>
+      <if test="hot != null" >
+        HOT,
+      </if>
+      <if test="materials != null" >
+        MATERIALS,
+      </if>
+      <if test="seasoning != null" >
+        SEASONING,
+      </if>
+      <if test="note != null" >
+        NOTE,
+      </if>
+      <if test="money != null" >
+        MONEY,
+      </if>
+      <if test="minImg != null" >
+        MIN_IMG,
+      </if>
+      <if test="maxImg != null" >
+        MAX_IMG,
+      </if>
+      <if test="extendImg != null" >
+        EXTEND_IMG,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="dateLine != null" >
+        DATE_LINE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id},
+      <if test="cid != null" >
+        #{cid},
+      </if>
+      <if test="cnum != null" >
+        #{cnum},
+      </if>
+      <if test="cname != null" >
+        #{cname},
+      </if>
+      <if test="hot != null" >
+        #{hot},
+      </if>
+      <if test="materials != null" >
+        #{materials},
+      </if>
+      <if test="seasoning != null" >
+        #{seasoning},
+      </if>
+      <if test="note != null" >
+        #{note},
+      </if>
+      <if test="money != null" >
+        #{money},
+      </if>
+      <if test="minImg != null" >
+        #{minImg},
+      </if>
+      <if test="maxImg != null" >
+        #{maxImg},
+      </if>
+      <if test="extendImg != null" >
+        #{extendImg},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="dateLine != null" >
+        #{dateLine},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.czg.common.DaoCriteria" resultType="java.lang.Integer" >
+    select count(*) from chan_pin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update chan_pin
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id},
+      </if>
+      <if test="record.cid != null" >
+        CID = #{record.cid},
+      </if>
+      <if test="record.cnum != null" >
+        CNUM = #{record.cnum},
+      </if>
+      <if test="record.cname != null" >
+        CNAME = #{record.cname},
+      </if>
+      <if test="record.hot != null" >
+        HOT = #{record.hot},
+      </if>
+      <if test="record.materials != null" >
+        MATERIALS = #{record.materials},
+      </if>
+      <if test="record.seasoning != null" >
+        SEASONING = #{record.seasoning},
+      </if>
+      <if test="record.note != null" >
+        NOTE = #{record.note},
+      </if>
+      <if test="record.money != null" >
+        MONEY = #{record.money},
+      </if>
+      <if test="record.minImg != null" >
+        MIN_IMG = #{record.minImg},
+      </if>
+      <if test="record.maxImg != null" >
+        MAX_IMG = #{record.maxImg},
+      </if>
+      <if test="record.extendImg != null" >
+        EXTEND_IMG = #{record.extendImg},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status},
+      </if>
+      <if test="record.dateLine != null" >
+        DATE_LINE = #{record.dateLine},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update chan_pin
+    set ID = #{record.id},
+      CID = #{record.cid},
+      CNUM = #{record.cnum},
+      CNAME = #{record.cname},
+      HOT = #{record.hot},
+      MATERIALS = #{record.materials},
+      SEASONING = #{record.seasoning},
+      NOTE = #{record.note},
+      MONEY = #{record.money},
+      MIN_IMG = #{record.minImg},
+      MAX_IMG = #{record.maxImg},
+      EXTEND_IMG = #{record.extendImg},
+      STATUS = #{record.status},
+      DATE_LINE = #{record.dateLine}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.czg.bean.ChanPin" >
+    update chan_pin
+    <set >
+      <if test="cid != null" >
+        CID = #{cid},
+      </if>
+      <if test="cnum != null" >
+        CNUM = #{cnum},
+      </if>
+      <if test="cname != null" >
+        CNAME = #{cname},
+      </if>
+      <if test="hot != null" >
+        HOT = #{hot},
+      </if>
+      <if test="materials != null" >
+        MATERIALS = #{materials},
+      </if>
+      <if test="seasoning != null" >
+        SEASONING = #{seasoning},
+      </if>
+      <if test="note != null" >
+        NOTE = #{note},
+      </if>
+      <if test="money != null" >
+        MONEY = #{money},
+      </if>
+      <if test="minImg != null" >
+        MIN_IMG = #{minImg},
+      </if>
+      <if test="maxImg != null" >
+        MAX_IMG = #{maxImg},
+      </if>
+      <if test="extendImg != null" >
+        EXTEND_IMG = #{extendImg},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="dateLine != null" >
+        DATE_LINE = #{dateLine},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.czg.bean.ChanPin" >
+    update chan_pin
+    set CID = #{cid},
+      CNUM = #{cnum},
+      CNAME = #{cname},
+      HOT = #{hot},
+      MATERIALS = #{materials},
+      SEASONING = #{seasoning},
+      NOTE = #{note},
+      MONEY = #{money},
+      MIN_IMG = #{minImg},
+      MAX_IMG = #{maxImg},
+      EXTEND_IMG = #{extendImg},
+      STATUS = #{status},
+      DATE_LINE = #{dateLine}
+    where ID = #{id}
+  </update>
+</mapper>
